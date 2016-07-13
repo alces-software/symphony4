@@ -82,9 +82,19 @@ then
 	# Creating directory to store git repositories in
 	mkdir "/$clusterName"
 
+
 	# Cloning GIT repositories from GitHub
 	cloneBaseRepos $clusterName
 
+
 	# Creating destination directory for generated configuration ISO files
 	mkdir "$vmImgPath/$clusterName"
+
+
+	# Generating Meta Data config file
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-director/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
+
+
+	# Generating User Data config file
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-director/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
 fi
