@@ -44,10 +44,10 @@ function cloneRepo() {
 
 # Clones all base repos required from GitHub | cloneBaseRepos(clusterName)
 function cloneBaseRepos() {
-	cloneRepo symphony-director /"$1"
-	cloneRepo symphony-directory /"$1"
-	cloneRepo symphony-monitor /"$1"
-	cloneRepo symphony-repo /"$1"
+	cloneRepo symphony-director "/$1/symphony-director"
+	cloneRepo symphony-directory "/$1/symphony-directory"
+	cloneRepo symphony-monitor "/$1/symphony-monitor"
+	cloneRepo symphony-repo "/$1/symphony-repo"
 }
 
 # Validation of parameters
