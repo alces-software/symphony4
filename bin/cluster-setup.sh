@@ -49,13 +49,6 @@ function cloneRepo() {
 	echo
 	echo "git clone https://github.com/alces-software/$1.git $2"
 	git clone https://github.com/alces-software/$1.git $2
-
-	echo
-	echo
-	echo "------------------------------------------------------------------"
-	echo "------------------------------------------------------------------"
-	echo
-	echo
 }
 
 
@@ -84,12 +77,7 @@ then
 	echo
 	echo
 	echo "Running application"
-	echo
-	echo
-	echo "------------------------------------------------------------------"
-	echo "------------------------------------------------------------------"
-	echo
-	echo
+
 
 	# Creating directory to store git repositories in
 	mkdir "/$clusterName"
