@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# This script is used to fire up base images for clusters
+
+
+# Gathering base information required for operation from passed in parameters
+
+clusterName=$1
+rootPass=$2
+adminPass=$3
+vmImgPath=$4
+baseImgFileName=$5
+
+paramCount=$#
+
+
+# Validation of parameters that have been passed into the script
+function parameterValidation() {
+	echo $paramCount
+
+	if [ $paramCount -gt 5 ]
+	then
+		echo "Too many parameters have been supplied"
+		return 1
+	elif [ $paramCount -lt 5 ]
+	then
+		echo "Not enough parameters have been supplied"
+		return 1
+	elif [[ ! -d "$vmImgPath" ]]
+	then
+		echo "Path to the vm images is invalid"
+		return 1
+	fi
+}
+
+
+# Clones a repo from GitHub. | cloneRepo(repoName, localWorkspace)
+function cloneRepo() {
+	git clone https://github.com/alces-software/$1.git $2
+}
+
+
+# Clones all base repos required from GitHub | cloneBaseRepos(clusterName)
+function cloneBaseRepos() {
+	cloneRepo symphony-director /"$1"
+	cloneRepo symphony-directory /"$1"
+	cloneRepo symphony-monitor /"$1"
+	cloneRepo symphony-repo /"$1"
+}
+
+echo $paramCount
+
+# Validation of parameters
+parameterValidation
+
+validInputs="$?"
+
+echo $validInputs
+
+# Runs the main application if parameter validation has passed
+if [ $validInputs -eq 10 ]
+then
+	echo "Running application"
+fi
