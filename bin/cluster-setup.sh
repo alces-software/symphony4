@@ -97,4 +97,13 @@ then
 
 	# Generating User Data config file
 	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-director/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
+
+
+	# Generating ISO
+	genisoimage -o "$vmImgPath/$clusterName/symphony-director-config.iso" -V cidata -r -J "$vmImgPath/$clusterName/meta-data" "$vmImgPath/$clusterName/user-data"
+
+
+
+
+
 fi
