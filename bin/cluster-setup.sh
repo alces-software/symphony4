@@ -28,6 +28,10 @@ function parameterValidation() {
 	then
 		echo "Path to the vm images is invalid"
 		return 1
+#	elif [[  ]]
+#	then
+#		echo "A cluster by this name is currently being setup or already in use"
+#		return 1
 	fi
 }
 
