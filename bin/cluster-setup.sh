@@ -102,7 +102,12 @@ then
 	# Generating ISO
 	genisoimage -o "$vmImgPath/$clusterName/symphony-director-config.iso" -V cidata -r -J "$vmImgPath/$clusterName/meta-data" "$vmImgPath/$clusterName/user-data"
 
+	# Copying base vm image to workspace
+	cp -v "$vmImgPath/imagebuilder-release/centos7-symphony-4.qcow2" "$vmImgPath/$clusterName/centos7-symphony-director.qcow2"
 
+
+	# Starting cluster instance
+	virsh start "symphony-director.$clusterName"
 
 
 
