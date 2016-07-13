@@ -35,6 +35,21 @@ function parameterValidation() {
 	fi
 }
 
+# Clones a repo from GitHub. | cloneRepo(repoName, localWorkspace)
+function cloneRepo() {
+	echo "git clone https://github.com/alces-software/$1.git $2"
+	git clone https://github.com/alces-software/$1.git $2
+}
+
+
+# Clones all base repos required from GitHub | cloneBaseRepos(clusterName)
+function cloneBaseRepos() {
+	cloneRepo symphony-director /"$1"
+	cloneRepo symphony-directory /"$1"
+	cloneRepo symphony-monitor /"$1"
+	cloneRepo symphony-repo /"$1"
+}
+
 # Validation of parameters
 parameterValidation
 
@@ -46,4 +61,13 @@ echo $validInputs
 if [ $validInputs -eq 0 ]
 then
 	echo "Running application"
+
+	# Creating directory to store git repositories in
+	mkdir "/$clusterName"
+
+	# Cloning GIT repositories from GitHub
+	cloneRepos $clusterName
+
+	# Creating destination directory for generated configuration ISO files
+	mkdir "$vmImgPath/$clusterName"
 fi
