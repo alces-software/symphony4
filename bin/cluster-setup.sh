@@ -66,7 +66,7 @@ then
 	mkdir "/$clusterName"
 
 	# Cloning GIT repositories from GitHub
-	cloneRepos $clusterName
+	cloneBaseRepos $clusterName
 
 	# Creating destination directory for generated configuration ISO files
 	mkdir "$vmImgPath/$clusterName"
