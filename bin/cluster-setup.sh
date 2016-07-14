@@ -48,6 +48,8 @@ function cloneRepo() {
 	echo
 	echo
 	echo "git clone https://github.com/alces-software/$1.git $2"
+	echo
+	echo
 	git clone https://github.com/alces-software/$1.git $2
 }
 
@@ -146,6 +148,12 @@ function buildModule() {
 
 	# Starting cluster instance
 	virsh start "symphony-$moduleName.$clusterName"
+
+	echo
+	echo
+	echo "Module started: $moduleName"
+	echo
+	echo
 }
 
 
@@ -188,4 +196,7 @@ then
 	buildModule monitor
 
 
+	# Removing User and Meta data files that are no longer required
+	rm -f "$vmImgPath/$clusterName/meta-data"
+	rm -f "$vmImgPath/$clusterName/user-data"
 fi
