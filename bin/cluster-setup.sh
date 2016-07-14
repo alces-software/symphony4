@@ -96,6 +96,8 @@ then
 	echo "------------------------------------------------------------------"
 	echo
 	echo
+	echo "-- Generating User & Meta Data Configs --"
+	echo
 
 	# Generating Meta Data config file
 	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-director/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
@@ -109,6 +111,7 @@ then
 	echo "------------------------------------------------------------------"
 	echo "------------------------------------------------------------------"
 	echo
+	echo "-- Generating XML --"
 	echo
 
 	# Generating symphony XML to define the instance
@@ -121,6 +124,8 @@ then
 	echo "------------------------------------------------------------------"
 	echo
 	echo
+	echo "-- Generating ISO --"
+	echo
 
 
 	# Generating ISO
@@ -131,6 +136,8 @@ then
 	echo "------------------------------------------------------------------"
 	echo "------------------------------------------------------------------"
 	echo
+	echo
+	echo "-- Copying Base Image --"
 	echo
 
 	# Copying base vm image to workspace
@@ -143,6 +150,8 @@ then
 	echo "------------------------------------------------------------------"
 	echo
 	echo
+	echo "-- Defining Cluster Instance --"
+	echo
 
 	# Defining the cluster domain in virsh
 	virsh define "$vmImgPath/$clusterName/symphony-director.xml"
@@ -153,6 +162,8 @@ then
 	echo "------------------------------------------------------------------"
 	echo "------------------------------------------------------------------"
 	echo
+	echo
+	echo "-- Starting Cluster Instance --"
 	echo
 
 	# Starting cluster instance
