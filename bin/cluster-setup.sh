@@ -124,6 +124,21 @@ function buildModule() {
 	cp -v "$vmImgPath/imagebuilder-release/centos7-symphony-4.qcow2" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2"
 
 
+
+	# Checks the current module is the repo module as it requires additional resources
+	if [ $moduleName == "repo" ]
+	then
+		# Copying additional repo datadisks to instance workspace
+		cp -v "$vmImgPath/symphony-repo-pulp.qcow2" "$vmImgPath/$clusterName/symphony-repo-pulp.qcow2"
+		cp -v "$vmImgPath/symphony-repo-mongo.qcow2" "$vmImgPath/$clusterName/symphony-repo-mongo.qcow2"
+
+		# Creating additional repo datadisks
+		qemu-img create -f qcow2 -o preallocation=metadata "$vmImgPath/$clusterName/symphony-repo-pulp.qcow2" 80G
+		qemu-img create -f qcow2 -o preallocation=metadata "$vmImgPath/$clusterName/symphony-repo-mongo.qcow2" 80G
+	fi
+
+
+
 	echo
 	echo
 	echo "------------------------------------------------------------------"
