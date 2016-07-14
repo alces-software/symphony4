@@ -184,6 +184,8 @@ then
 
 	# Building modules for cluster instance
 	buildModule director
+	buildModule directory
+	buildModule monitor
 
 
 fi
