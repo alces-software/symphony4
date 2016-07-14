@@ -100,7 +100,7 @@ then
 
 
 	# Generating symphony XML to define the instance
-	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%CLUSTERNAME%/$clusterName/g" -e "s/%IMGPATH%/$vmImgPath\/$clusterName/g" "/$clusterName/symphony-director/install/libvirt/symphony-director.xml" > "$vmImgPath/$clusterName/libvirt/symphony.xml"
+	sed -e "s|%CLUSTER%|$clusterName|g" -e "s|%CLUSTERNAME%|$clusterName|g" -e "s|%IMGPATH%|$vmImgPath/$clusterName|g" "/$clusterName/symphony-director/install/libvirt/symphony-director.xml" > "$vmImgPath/$clusterName/libvirt/symphony-director.xml"
 
 
 	# Generating ISO
