@@ -90,6 +90,12 @@ then
 	# Creating destination directory for generated configuration ISO files
 	mkdir "$vmImgPath/$clusterName"
 
+	echo
+	echo
+	echo "------------------------------------------------------------------"
+	echo "------------------------------------------------------------------"
+	echo
+	echo
 
 	# Generating Meta Data config file
 	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-director/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
@@ -98,20 +104,56 @@ then
 	# Generating User Data config file
 	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-director/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
 
+	echo
+	echo
+	echo "------------------------------------------------------------------"
+	echo "------------------------------------------------------------------"
+	echo
+	echo
 
 	# Generating symphony XML to define the instance
 	sed -e "s|%CLUSTER%|$clusterName|g" -e "s|%CLUSTERNAME%|$clusterName|g" -e "s|%IMGPATH%|$vmImgPath/$clusterName|g" "/$clusterName/symphony-director/install/libvirt/symphony-director.xml" > "$vmImgPath/$clusterName/libvirt/symphony-director.xml"
 
 
+	echo
+	echo
+	echo "------------------------------------------------------------------"
+	echo "------------------------------------------------------------------"
+	echo
+	echo
+
+
 	# Generating ISO
 	genisoimage -o "$vmImgPath/$clusterName/symphony-director-config.iso" -V cidata -r -J "$vmImgPath/$clusterName/meta-data" "$vmImgPath/$clusterName/user-data"
+
+	echo
+	echo
+	echo "------------------------------------------------------------------"
+	echo "------------------------------------------------------------------"
+	echo
+	echo
 
 	# Copying base vm image to workspace
 	cp -v "$vmImgPath/imagebuilder-release/centos7-symphony-4.qcow2" "$vmImgPath/$clusterName/centos7-symphony-director.qcow2"
 
 
+	echo
+	echo
+	echo "------------------------------------------------------------------"
+	echo "------------------------------------------------------------------"
+	echo
+	echo
+
 	# Defining the cluster domain in virsh
 	virsh define "$vmImgPath/$clusterName/symphony-director.xml"
+
+
+	echo
+	echo
+	echo "------------------------------------------------------------------"
+	echo "------------------------------------------------------------------"
+	echo
+	echo
 
 	# Starting cluster instance
 	virsh start "symphony-director.$clusterName"
