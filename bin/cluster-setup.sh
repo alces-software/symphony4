@@ -209,6 +209,7 @@ then
 	buildModule director
 	buildModule directory
 	buildModule monitor
+	buildModule repo
 
 
 	# Removing User and Meta data files that are no longer required
