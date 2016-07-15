@@ -5,26 +5,35 @@
 
 # Gathering base information required for operation from passed in parameters
 
-clusterName=$1
-rootPass=$2
-adminPass=$3
-vmImgPath=$4
-baseImgFileName=$5
+if [ -z $clusterName  ]
+then
+	clusterName=$1
+fi
 
-paramCount=$#
+if [ -z $rootPass ]
+then
+	rootPass=$2
+fi
+
+if [ -z $adminPass ]
+then
+	adminPass=$3
+fi
+
+if [ -z $vmImgPath ]
+then
+	vmImgPath=$4
+fi
+
+if [ -z $baseImgFileName ]
+then
+	baseImgFileName=$5
+fi
 
 
 # Validation of parameters that have been passed into the script
 function parameterValidation() {
-	if [ $paramCount -gt 5 ]
-	then
-		echo "Too many parameters have been supplied"
-		return 1
-	elif [ $paramCount -lt 5 ]
-	then
-		echo "Not enough parameters have been supplied"
-		return 1
-	elif [ ! -d "$vmImgPath" ]
+	if [ ! -d "$vmImgPath" ]
 	then
 		echo "Path to the vm images is invalid"
 		return 1
