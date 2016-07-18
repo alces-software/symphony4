@@ -3,7 +3,30 @@
 # This script is used to fire up base images for clusters
 
 
-# Gathering base information required for operation from passed in parameters
+# Reading script configuration from a config file if there is one available.
+if [ -f ./cluster-config ]
+then
+
+	# Reading paramaters from config file
+	IFS=', ' read -r -a params <<< $( cat cluster-config)
+	
+	# Setting parameters from items read in config file
+	clusterName=${params[0]}
+	rootPass=${params[1]}
+	adminPass=${params[2]}
+	vmImgPath=${params[3]}
+	baseImgFileName=${params[4]}
+
+	echo "Cluster Name:	$clusterName"
+	echo "Root Pass:	$rootPass"
+	echo "Admin Pass:	$adminPass"
+	echo "VM Image:	$vmImgPath"
+	echo "Base Image:	$baseImgFileName"
+	
+fi
+
+
+# Setting base information required for operation from passed in parameters if not previously set
 
 if [ -z $clusterName  ]
 then
