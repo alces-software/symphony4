@@ -174,8 +174,11 @@ function buildModule() {
 	echo
 
 	# Defining the cluster domain in virsh
-	virsh define "$vmImgPath/$clusterName/symphony-$moduleName.xml"
-
+	if ! `virsh define "$vmImgPath/$clusterName/symphony-$moduleName.xml"`
+	then
+		echo "Failed to define $vmImgPath/$clusterName/symphony-$moduleName.xml" >&2
+		exit 1
+	fi
 
 	echo
 	echo
@@ -187,7 +190,11 @@ function buildModule() {
 	echo
 
 	# Starting cluster instance
-	virsh start "symphony-$moduleName.$clusterName"
+	if ! `virsh start "symphony-$moduleName.$clusterName"`
+	then
+		echo "Failed to start symphony-$moduleName.$clusterName" >&2
+		exit 1
+	fi
 
 	echo
 	echo
