@@ -17,12 +17,6 @@ then
 	vmImgPath=${params[3]}
 	baseImgFileName=${params[4]}
 
-	echo "Cluster Name:	$clusterName"
-	echo "Root Pass:	$rootPass"
-	echo "Admin Pass:	$adminPass"
-	echo "VM Image:	$vmImgPath"
-	echo "Base Image:	$baseImgFileName"
-	
 fi
 
 
