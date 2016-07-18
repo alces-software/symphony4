@@ -6,16 +6,19 @@
 # Reading script configuration from a config file if there is one available.
 if [ -f ./cluster-config ]
 then
+#
+#	# Reading paramaters from config file
+#	IFS=', ' read -r -a params <<< $( cat cluster-config)
+#	
+#	# Setting parameters from items read in config file
+#	clusterName=${params[0]}
+#	rootPass=${params[1]}
+#	adminPass=${params[2]}
+#	vmImgPath=${params[3]}
+#	baseImgFileName=${params[4]}
+#
 
-	# Reading paramaters from config file
-	IFS=', ' read -r -a params <<< $( cat cluster-config)
-	
-	# Setting parameters from items read in config file
-	clusterName=${params[0]}
-	rootPass=${params[1]}
-	adminPass=${params[2]}
-	vmImgPath=${params[3]}
-	baseImgFileName=${params[4]}
+	source ./cluster-config
 
 fi
 
