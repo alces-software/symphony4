@@ -41,9 +41,9 @@ function parameterValidation() {
 	then
 		echo "The directory \"$vmImgPath/$clusterName\" already exists and may currently be in use"
 		return 1
-	elif [ -d "/$clusterName" ]
+	elif [ -d "/tmp/$clusterName" ]
 	then
-		echo "The directory \"/$clusterName\" already exists and may currently be in use"
+		echo "The directory \"/tmp/$clusterName\" already exists and may currently be in use"
 		return 1
 	fi
 }
@@ -65,10 +65,10 @@ function cloneRepo() {
 
 # Clones all base repos required from GitHub | cloneBaseRepos(clusterName)
 function cloneBaseRepos() {
-	cloneRepo symphony-director "/$1/symphony-director"
-	cloneRepo symphony-directory "/$1/symphony-directory"
-	cloneRepo symphony-monitor "/$1/symphony-monitor"
-	cloneRepo symphony-repo "/$1/symphony-repo"
+	cloneRepo symphony-director "/tmp/$1/symphony-director"
+	cloneRepo symphony-directory "/tmp/$1/symphony-directory"
+	cloneRepo symphony-monitor "/tmp/$1/symphony-monitor"
+	cloneRepo symphony-repo "/tmp/$1/symphony-repo"
 }
 
 
@@ -89,11 +89,11 @@ function buildModule() {
 	echo
 
 	# Generating Meta Data config file
-	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-$moduleName/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
 
 
 	# Generating User Data config file
-	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/$clusterName/symphony-$moduleName/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
 
 	echo
 	echo
@@ -104,7 +104,7 @@ function buildModule() {
 	echo
 
 	# Generating symphony XML to define the instance
-	sed -e "s|%CLUSTER%|$clusterName|g" -e "s|%CLUSTERNAME%|$clusterName|g" -e "s|%IMGPATH%|$vmImgPath/$clusterName|g" "/$clusterName/symphony-$moduleName/install/libvirt/symphony-$moduleName.xml" > "$vmImgPath/$clusterName/symphony-$moduleName.xml"
+	sed -e "s|%CLUSTER%|$clusterName|g" -e "s|%CLUSTERNAME%|$clusterName|g" -e "s|%IMGPATH%|$vmImgPath/$clusterName|g" "/tmp/$clusterName/symphony-$moduleName/install/libvirt/symphony-$moduleName.xml" > "$vmImgPath/$clusterName/symphony-$moduleName.xml"
 
 
 	echo
@@ -130,7 +130,7 @@ function buildModule() {
 	echo
 
 	# Copying base vm image to workspace
-	cp -v "$vmImgPath/imagebuilder-release/centos7-symphony-4.qcow2" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2"
+	cp -v "$baseImgFileName" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2"
 
 
 
@@ -199,7 +199,7 @@ then
 
 
 	# Creating directory to store git repositories in
-	mkdir "/$clusterName"
+	mkdir "/tmp/$clusterName"
 
 
 	# Cloning GIT repositories from GitHub
