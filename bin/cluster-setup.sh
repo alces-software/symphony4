@@ -237,4 +237,8 @@ then
 	# Removing User and Meta data files that are no longer required
 	rm -f "$vmImgPath/$clusterName/meta-data"
 	rm -f "$vmImgPath/$clusterName/user-data"
+
+
+	# Removing staging area
+	rm -rf /tmp/$clusterName
 fi
