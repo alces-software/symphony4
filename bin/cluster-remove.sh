@@ -58,6 +58,6 @@ then
 
 
 	# Deleting workspace directory
-	rm -rf $clusterWorkspace
+	#rm -rf $clusterWorkspace
 
 fi
