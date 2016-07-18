@@ -51,13 +51,13 @@ then
 	virsh destroy "symphony-repo.$clusterName"
 
 	# Removing all modules of our cluster in virsh
-	virsh destroy "symphony-director.$clusterName"
-	virsh destroy "symphony-directory.$clusterName"
-	virsh destroy "symphony-monitor.$clusterName"
-	virsh destroy "symphony-repo.$clusterName"
+	virsh undefine "symphony-director.$clusterName"
+	virsh undefine "symphony-directory.$clusterName"
+	virsh undefine "symphony-monitor.$clusterName"
+	virsh undefine "symphony-repo.$clusterName"
 
 
 	# Deleting workspace directory
-	#rm -rf $clusterWorkspace
+	rm -rf $clusterWorkspace
 
 fi
