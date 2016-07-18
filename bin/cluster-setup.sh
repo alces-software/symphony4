@@ -25,48 +25,52 @@ fi
 
 # Setting base information required for operation from passed in parameters if not previously set
 
-if [ -z $clusterName  ]
-then
-	clusterName=$1
-fi
 
-if [ -z $rootPass ]
-then
-	rootPass=$2
-fi
-
-if [ -z $adminPass ]
-then
-	adminPass=$3
-fi
-
-if [ -z $vmImgPath ]
-then
-	vmImgPath=$4
-fi
-
-if [ -z $baseImgFileName ]
-then
-	baseImgFileName=$5
-fi
 
 
 # Validation of parameters that have been passed into the script
 function parameterValidation() {
-	if [ ! -d "$vmImgPath" ]
+
+	if [ -z $clusterName  ]
 	then
-		echo "Path to the vm images is invalid"
-		return 1
+		echo "Cluster name has not been set" >&2
+		exit 2
+
+	elif [ -z $rootPass ]
+	then
+		echo "Root password has not been set" >&2
+		exit 2
+
+	elif [ -z $adminPass ]
+	then
+		echo "Admin password has not been set" >&2
+		exit 2
+
+	elif [ -z $vmImgPath ]
+	then
+		echo "VM image path has not been set" >&2
+		exit 2
+
+	elif [ -z $baseImgFileName ]
+	then
+		echo "Base image file name has not been set" >&2
+		exit 2
+
+	elif [ ! -d "$vmImgPath" ]
+	then
+		echo "Path to the vm images is invalid" >&2
+		exit 2
 	elif [ -d "$vmImgPath/$clusterName" ]
 	then
-		echo "The directory \"$vmImgPath/$clusterName\" already exists and may currently be in use"
-		return 1
+		echo "The directory \"$vmImgPath/$clusterName\" already exists and may currently be in use" >&2
+		exit 2
 	elif [ -d "/tmp/$clusterName" ]
 	then
-		echo "The directory \"/tmp/$clusterName\" already exists and may currently be in use"
-		return 1
+		echo "The directory \"/tmp/$clusterName\" already exists and may currently be in use" >&2
+		exit 2
 	fi
 }
+
 
 # Clones a repo from GitHub. | cloneRepo(repoName, localWorkspace)
 function cloneRepo() {
