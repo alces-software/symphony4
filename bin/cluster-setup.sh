@@ -68,6 +68,46 @@ function parameterValidation() {
 	then
 		echo "The directory \"/tmp/$clusterName\" already exists and may currently be in use" >&2
 		exit 2
+	elif [ -z $bridgeNetworkType ]
+	then
+		echo "Bridge network type has not been set"
+		exit 2
+	elif [ -z $bridgeNetworkName ]
+	then
+		echo "Bridge network name has not been set"
+		exit 2
+	elif [ -z $privateNetworkType ]
+	then
+		echo "Private network type has not been set"
+		exit 2
+	elif [ -z $privateNetworkName ]
+	then
+		echo "Private network name has not been set"
+		exit 2
+	elif [ -z $managementNetworkType ]
+	then
+		echo "Management network type has not been set"
+		exit 2
+	elif [ -z $managementNetworkName ]
+	then
+		echo "Management network name has not been set"
+		exit 2
+	elif [ -z $dmzNetworkType ]
+	then
+		echo "DMZ network type has not been set"
+		exit 2
+	elif [ -z $dmzNetworkName ]
+	then
+		echo "DMZ network name has not been set"
+		exit 2
+	elif [ -z $externalNetworkType ]
+	then
+		echo "External network type has not been set"
+		exit 2
+	elif [ -z $externalNetworkName ]
+	then
+		echo "External network name has not been set"
+		exit 2
 	fi
 }
 
