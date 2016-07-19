@@ -76,6 +76,10 @@ function parameterValidation() {
 	then
 		echo "Bridge network name has not been set"
 		exit 2
+	elif [ $bridgeNetworkType != "bridge" ] && [ $bridgeNetworkType != "network" ]
+	then
+		echo "Bridge network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
+		exit 2
 	elif [ -z $privateNetworkType ]
 	then
 		echo "Private network type has not been set"
@@ -83,6 +87,10 @@ function parameterValidation() {
 	elif [ -z $privateNetworkName ]
 	then
 		echo "Private network name has not been set"
+		exit 2
+	elif [ $privateNetworkType != "bridge" ] && [ $privateNetworkType != "network" ]
+	then
+		echo "Private network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
 		exit 2
 	elif [ -z $managementNetworkType ]
 	then
@@ -92,6 +100,10 @@ function parameterValidation() {
 	then
 		echo "Management network name has not been set"
 		exit 2
+	elif [ $managementNetworkType != "bridge" ] && [ $managementNetworkType != "network" ]
+	then
+		echo "Management network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
+		exit 2
 	elif [ -z $dmzNetworkType ]
 	then
 		echo "DMZ network type has not been set"
@@ -100,6 +112,10 @@ function parameterValidation() {
 	then
 		echo "DMZ network name has not been set"
 		exit 2
+	elif [ $dmzNetworkType != "bridge" ] && [ $dmzNetworkType != "network" ]
+	then
+		echo "DMZ network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
+		exit 2
 	elif [ -z $externalNetworkType ]
 	then
 		echo "External network type has not been set"
@@ -107,6 +123,10 @@ function parameterValidation() {
 	elif [ -z $externalNetworkName ]
 	then
 		echo "External network name has not been set"
+		exit 2
+	elif [ $externalNetworkType != "bridge" ] && [ $externalNetworkType != "network" ]
+	then
+		echo "External network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
 		exit 2
 	fi
 }
