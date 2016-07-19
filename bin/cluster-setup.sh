@@ -237,10 +237,14 @@ function buildModule() {
 	echo "-- Defining Cluster Instance --"
 	echo
 
+	exportXmlPath=$vmImgPath/$clusterName/symphony-$moduleName.xml
+
+	echo $exportXmlPath
+
 	# Defining the cluster domain in virsh
-	if ! `virsh define "$vmImgPath/$clusterName/symphony-$moduleName.xml"`
+	if [ ! `virsh define $exportXmlPath` ]
 	then
-		echo "Failed to define $vmImgPath/$clusterName/symphony-$moduleName.xml" >&2
+		echo "Failed to define $exportXmlPath" >&2
 		exit 1
 	fi
 
@@ -254,7 +258,7 @@ function buildModule() {
 	echo
 
 	# Starting cluster instance
-	if ! `virsh start "symphony-$moduleName.$clusterName"`
+	if [ ! `virsh start "symphony-$moduleName.$clusterName"` ]
 	then
 		echo "Failed to start symphony-$moduleName.$clusterName" >&2
 		exit 1
