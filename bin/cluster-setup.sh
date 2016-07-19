@@ -72,7 +72,7 @@ function parameterValidation() {
 	then
 		echo "Build network type has not been set"
 		exit 2
-	elif [ -z $bridgeNetworkName ]
+	elif [ -z $buildNetworkName ]
 	then
 		echo "Build network name has not been set"
 		exit 2
