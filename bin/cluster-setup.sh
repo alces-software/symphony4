@@ -168,7 +168,7 @@ function buildModule() {
 	echo
 
 	# Generating symphony XML to define the instance
-	sed -e "s|%CLUSTER%|$clusterName|g" -e "s|%CLUSTERNAME%|$clusterName|g" -e "s|%IMGPATH%|$vmImgPath/$clusterName|g" "/tmp/$clusterName/symphony-$moduleName/install/libvirt/symphony-$moduleName.xml" > "$vmImgPath/$clusterName/symphony-$moduleName.xml"
+	sed -e "s|%CLUSTER%|$clusterName|g" -e "s|%CLUSTERNAME%|$clusterName|g" -e "s|%IMGPATH%|$vmImgPath/$clusterName|g" -e "s|%BUILDNETWORKTYPE%|$buildNetworkType|g" -e "s|%BUILDNETWORKNAME%|$buildNetworkName|g" -e "s|%PRIVATENETWORKTYPE%|$privateNetworkType|g" -e "s|%PRIVATENETWORKNAME%|$privateNetworkName|g" -e "s|%MANAGEMENTNETWORKTYPE%|$managementNetworkType|g" -e "s|%MANAGEMENTNETWORKNAME%|$managementNetworkName|g" -e "s|%DMZNETWORKTYPE%|$dmzNetworkType|g" -e "s|%DMZNETWORKNAME%|$dmzNetworkName|g" -e "s|%EXTERNALNETWORKTYPE%|$externalNetworkType|g" -e "s|%EXTERNALNETWORKNAME%|$externalNetworkName|g" "/tmp/$clusterName/symphony-$moduleName/install/libvirt/symphony-$moduleName.xml" > "$vmImgPath/$clusterName/symphony-$moduleName.xml"
 
 
 	echo
