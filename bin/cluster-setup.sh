@@ -68,17 +68,17 @@ function parameterValidation() {
 	then
 		echo "The directory \"/tmp/$clusterName\" already exists and may currently be in use" >&2
 		exit 2
-	elif [ -z $bridgeNetworkType ]
+	elif [ -z $buildNetworkType ]
 	then
-		echo "Bridge network type has not been set"
+		echo "Build network type has not been set"
 		exit 2
 	elif [ -z $bridgeNetworkName ]
 	then
-		echo "Bridge network name has not been set"
+		echo "Build network name has not been set"
 		exit 2
-	elif [ $bridgeNetworkType != "bridge" ] && [ $bridgeNetworkType != "network" ]
+	elif [ $buildNetworkType != "bridge" ] && [ $buildNetworkType != "network" ]
 	then
-		echo "Bridge network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
+		echo "Build network type is incorrect. Network type can only be set to either \"bridge\" or \"network\""
 		exit 2
 	elif [ -z $privateNetworkType ]
 	then
