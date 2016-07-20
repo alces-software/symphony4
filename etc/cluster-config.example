@@ -1,0 +1,15 @@
+clusterName=testcluster
+rootPass=RootPass123
+adminPass=AdminPass123
+vmImgPath=/opt/vm
+baseImgFileName=/opt/vm/imagebuilder-release/centos7-symphony-4.qcow2
+buildNetworkType=bridge
+buildNetworkName=build
+privateNetworkType=bridge
+privateNetworkName=prv
+managementNetworkType=bridge
+managementNetworkName=mgt
+dmzNetworkType=bridge
+dmzNetworkName=dmz
+externalNetworkType=bridge
+externalNetworkName=ext
