@@ -214,7 +214,9 @@ function buildModule() {
 	echo
 
 	# Copying base vm image to workspace
-	cp -v "$baseImgFileName" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2"
+	#cp -v "$baseImgFileName" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2"
+        qemu-img create -f qcow2 -o preallocation=metadata "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2" 80G
+        virt-resize "$baseImgFileName" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2" --expand /dev/sda1
 
         # Creating swap drive
         qemu-img create -f qcow2 -o preallocation=metadata "$vmImgPath/$clusterName/centos7-symphony-$moduleName-swap.qcow2" 8G
