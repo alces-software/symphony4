@@ -216,6 +216,9 @@ function buildModule() {
 	# Copying base vm image to workspace
 	cp -v "$baseImgFileName" "$vmImgPath/$clusterName/centos7-symphony-$moduleName.qcow2"
 
+        # Creating swap drive
+        qemu-img create -f qcow2 -o preallocation=metadata "$vmImgPath/$clusterName/centos7-symphony-$moduleName-swap.qcow2" 8G
+
 
 
 	# Checks the current module is the repo module as it requires additional resources
