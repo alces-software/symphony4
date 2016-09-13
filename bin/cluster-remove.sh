@@ -2,40 +2,33 @@
 
 # This script will stop and undefine a virsh instance of our cluster specified and remove the workspace.
 
+usage() {
 
-# Gathering clusterName and clusterWorkspace parameters
-if [ -z $clusterName ]
-then
-	clusterName=$1
-fi
-
-if [ -z $clusterWorkspace ]
-then
-	clusterWorkspace=$2
-fi
-
-
-# Function to validate script parameters to ensure that some have been supplied and validate with a working directory
-function validateInputs() {
-	if [ -z "$clusterWorkspace" ]
-	then
-		echo "A cluster workspace directory has not been supplied"
-		return 1
-	elif [ ! -d "$clusterWorkspace" ]
-	then
-		echo "The path to the instance workspace is invalid: $clusterWorkspace"
-		return 1
-	elif [ -z $clusterName ]
-	then
-		echo "A cluster name has not been supplied"
-		return 1
-	fi
+  echo "Usage: $0 <cluster name> <cluster workspace dir>"
+  exit 1
 
 }
 
-
-# Validation of parameters
-validateInputs
+# Gathering clusterName and clusterWorkspace parameters
+if [[ -z $clusterName ]] || [[ -z $clusterWorkspace ]]; then
+  if [ $1 ]; then
+    clusterName=$1
+  elif [ ! $1 ]; then
+    echo "Cluster name not supplied"
+    usage
+  fi
+  if [ $2 ]; then
+    if [ -d "$2" ]; then
+      clusterWorkspace=$2
+    elif [ ! -d "$2" ]; then
+      echo "The path to the instance workspace is invalid: $2"
+      exit 1
+    fi
+  elif [ ! $2 ]; then
+    echo "Cluster workspace not supplied"
+    usage
+  fi
+fi
 
 validInputs="$?"
 
