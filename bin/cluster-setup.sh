@@ -4,7 +4,9 @@
 
 
 # Reading script configuration from a config file if there is one available.
-if [ -f ./cluster-config ]
+dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+config="${dir}/../etc/cluster-config"
+if [ -f $config ]
 then
 #
 #	# Reading paramaters from config file
@@ -18,15 +20,9 @@ then
 #	baseImgFileName=${params[4]}
 #
 
-	source ./cluster-config
+	source $config
 
 fi
-
-
-# Setting base information required for operation from passed in parameters if not previously set
-
-
-
 
 # Validation of parameters that have been passed into the script
 function parameterValidation() {
@@ -173,7 +169,7 @@ function buildModule() {
 	echo
 
 	# Generating Meta Data config file
-	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" -e "s/root:moose/root:$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
 
 
 	# Generating User Data config file
@@ -247,7 +243,7 @@ function buildModule() {
 	echo $exportXmlPath
 
 	# Defining the cluster domain in virsh
-	if [ ! `virsh define $exportXmlPath` ]
+	if [ ! "$(virsh define $exportXmlPath)" ]
 	then
 		echo "Failed to define $exportXmlPath" >&2
 		exit 1
@@ -263,10 +259,9 @@ function buildModule() {
 	echo
 
 	# Starting cluster instance
-	if [ ! `virsh start "symphony-$moduleName.$clusterName"` ]
-	then
-		echo "Failed to start symphony-$moduleName.$clusterName" >&2
-		exit 1
+	if ! virsh start symphony-$moduleName.$clusterName; then
+	  echo "Failed to start symphony-$moduleName.$clusterName" >&2
+       	  exit 1
 	fi
 
 	echo
