@@ -169,11 +169,11 @@ function buildModule() {
 	echo
 
 	# Generating Meta Data config file
-	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" -e "s/root:moose/root:$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/meta-data" > "$vmImgPath/$clusterName/meta-data"
 
 
 	# Generating User Data config file
-	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" "/tmp/$clusterName/symphony-$moduleName/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
+	sed -e "s/%CLUSTER%/$clusterName/g" -e "s/%ADMINPASSWORD%/$adminPass/g" -e "s/%ROOTPASSWORD%/$rootPass/g" -e "s/root:moose/root:$rootPass/g"  "/tmp/$clusterName/symphony-$moduleName/install/configdrive/user-data" > "$vmImgPath/$clusterName/user-data"
 
 	echo
 	echo
